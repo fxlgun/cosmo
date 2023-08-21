@@ -8,7 +8,8 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import Cosmo from "../image/Cosmo.png";
+import Cosmo from "../image/Cosmos.png";
+import "./login.css"
 
 const defaultTheme = createTheme();
 
@@ -27,22 +28,19 @@ export default function Login() {
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
+          className="loginBg"
           item
           xs={false}
           sm={4}
-          md={8}
+          md={7}
           sx={{
             backgroundImage: `url(${Cosmo})`,
             backgroundRepeat: "no-repeat",
-            backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
-            backgroundSize: "contain",
-            backgroundPosition: "center",
+            backgroundSize: "cover",
           }}
-        />
-        <Grid item xs={12} sm={8} md={4} component={Paper} elevation={6} square>
+        >
+        </Grid>
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
               my: 8,

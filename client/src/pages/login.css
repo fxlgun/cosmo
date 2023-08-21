@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@600&family=Zeyada&display=swap');
+
 .loginContainer {
   display: flex;
   align-items: center;
@@ -41,3 +43,12 @@ input {
   border-radius: 10px;
   color: #a5d7e8;
 }
+
+.COSMO{
+  font-family: 'League Spartan', sans-serif;
+}
+
+.subhead{
+  font-family: 'Zeyada', cursive;
+}
+
