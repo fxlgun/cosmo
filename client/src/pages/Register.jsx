@@ -1,18 +1,14 @@
 import * as React from 'react';
-import { CssVarsProvider, useColorScheme } from '@mui/joy/styles';
+import { CssVarsProvider } from '@mui/joy/styles';
 import GlobalStyles from '@mui/joy/GlobalStyles';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
-import Checkbox from '@mui/joy/Checkbox';
 import FormControl from '@mui/joy/FormControl';
 import FormLabel, { formLabelClasses } from '@mui/joy/FormLabel';
-import IconButton, { IconButtonProps } from '@mui/joy/IconButton';
 import Link from '@mui/joy/Link';
 import Input from '@mui/joy/Input';
 import Typography from '@mui/joy/Typography';
-import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
-import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import Cosmo from "../image/Cosmo.png"
 
 
@@ -20,7 +16,7 @@ import Cosmo from "../image/Cosmo.png"
 /**
  * This template uses [`Inter`](https://fonts.google.com/specimen/Inter?query=inter) font.
  */
-export default function Login() {
+export default function Register() {
   return (
     <CssVarsProvider defaultMode="dark" disableTransitionOnChange>
       <CssBaseline />
@@ -97,10 +93,10 @@ export default function Login() {
           >
             <div>
               <Typography component="h1" fontSize="xl2" fontWeight="lg">
-                Sign in
+                Sign up
               </Typography>
               <Typography level="body-sm" sx={{ my: 1, mb: 3 }}>
-                Wield the key to outer world
+                Join us and know no borders.
               </Typography>
             </div>
             <form
@@ -123,6 +119,10 @@ export default function Login() {
                 <FormLabel>Password</FormLabel>
                 <Input type="password" name="password" />
               </FormControl>
+              <FormControl required>
+                <FormLabel>Confirm Password</FormLabel>
+                <Input type="password" name="password" />
+              </FormControl>
               <Box
                 sx={{
                   display: 'flex',
@@ -135,7 +135,7 @@ export default function Login() {
                 </Link>
               </Box>
               <Button type="submit" fullWidth>
-                Sign in
+                Sign Up
               </Button>
             </form>
           </Box>
