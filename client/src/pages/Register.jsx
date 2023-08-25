@@ -131,7 +131,7 @@ export default function Register() {
                 }}
               >
                 <Link fontSize="sm" href="#replace-with-a-link" fontWeight="lg">
-                  Forgot your password?
+                  Already have an account? Sign in
                 </Link>
               </Box>
               <Button type="submit" fullWidth>

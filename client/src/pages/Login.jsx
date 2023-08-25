@@ -14,6 +14,7 @@ import Typography from '@mui/joy/Typography';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
 import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded';
 import Cosmo from "../image/Cosmo.png"
+import Logo from "../image/Logo.png"
 
 
 
@@ -130,6 +131,7 @@ export default function Login() {
                   alignItems: 'center',
                 }}
               >
+                <Link fontSize="sm" href="#replace-with-a-link" fontWeight="lg">Create Acccount</Link>
                 <Link fontSize="sm" href="#replace-with-a-link" fontWeight="lg">
                   Forgot your password?
                 </Link>
