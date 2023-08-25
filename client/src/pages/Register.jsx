@@ -10,6 +10,7 @@ import Link from '@mui/joy/Link';
 import Input from '@mui/joy/Input';
 import Typography from '@mui/joy/Typography';
 import Cosmo from "../image/Cosmo.png"
+import { ToggleButtonGroup } from '@mui/joy';
 
 
 
@@ -17,6 +18,7 @@ import Cosmo from "../image/Cosmo.png"
  * This template uses [`Inter`](https://fonts.google.com/specimen/Inter?query=inter) font.
  */
 export default function Register() {
+  const [type, setType] = React.useState(null)
   return (
     <CssVarsProvider defaultMode="dark" disableTransitionOnChange>
       <CssBaseline />
@@ -115,6 +117,22 @@ export default function Register() {
                 <FormLabel>Email</FormLabel>
                 <Input type="email" name="email" />
               </FormControl>
+              <ToggleButtonGroup
+      value={type}
+      onChange={(event, newValue) => {
+        setType(newValue);
+      }}
+    >
+      <Button value="aspirant">
+        Aspirant
+      </Button>
+      <Button value="studyingAbroad">
+        Studying Abroad
+      </Button>
+      <Button value="workingAbroad">
+        Working Abroad
+      </Button>
+    </ToggleButtonGroup>
               <FormControl required>
                 <FormLabel>Password</FormLabel>
                 <Input type="password" name="password" />
