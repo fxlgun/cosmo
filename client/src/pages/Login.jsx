@@ -44,7 +44,7 @@ export default function Login() {
           zIndex: 1,
           display: 'flex',
           justifyContent: 'flex-end',
-          backdropFilter: 'blur(4px)',
+          backdropFilter: 'blur(15px)',
           backgroundColor: 'rgba(255 255 255 / 0.6)',
           [theme.getColorSchemeSelector('dark')]: {
             backgroundColor: 'rgba(19 19 24 / 0.4)',
