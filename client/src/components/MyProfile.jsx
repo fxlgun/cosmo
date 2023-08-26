@@ -30,7 +30,7 @@ export default function Profile() {
       }}
     >
       <Typography level="h1" fontSize="xl2" sx={{ mb: 1 }}>
-        My profile
+        My Profile
       </Typography>
       <Tabs defaultValue={0} sx={{ bgcolor: 'transparent' }}>
         <Box
