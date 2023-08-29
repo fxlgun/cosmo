@@ -12,13 +12,14 @@ import Typography from "@mui/joy/Typography";
 import Cosmo from "../image/Cosmo.png";
 import { Chip, Radio, RadioGroup } from "@mui/joy";
 import CheckIcon from "@mui/icons-material/Check";
-import { RegisterAPI } from "../api/auth";
+import { GoogleApi, RegisterAPI } from "../api/auth";
 import { Toaster, toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
 import Loader from "../components/Loader";
+import GoogleIcon from "../components/GoogleIcon";
 
 /**
  * This template uses [`Inter`](https://fonts.google.com/specimen/Inter?query=inter) font.
@@ -46,19 +47,29 @@ export default function Register() {
     e.preventDefault();
     try {
       let res = await RegisterAPI(credentials.email, credentials.password);
-      toast.success("Account Created");
     } catch (err) {
       console.log(err);
-      toast.error("Trouble Creating Account");
     }
   };
+
+  const googleSignIn = async () => {
+    const res =  await GoogleApi()
+    console.log(res);
+  }
 
   return loading ? (
     <Loader />
   ) : (
     <CssVarsProvider defaultMode="dark" disableTransitionOnChange>
+      <Toaster
+        toastOptions={{
+          style: {
+            backgroundColor: "black",
+            color: "white",
+          },
+        }}
+      />
       <CssBaseline />
-      <Toaster />
       <GlobalStyles
         styles={{
           ":root": {
@@ -246,6 +257,15 @@ export default function Register() {
                 Sign Up
               </Button>
             </form>
+            <Button
+              variant="outlined"
+              color="neutral"
+              fullWidth
+              startDecorator={<GoogleIcon />}
+              onClick={googleSignIn}
+            >
+              Sign in with Google
+            </Button>
           </Box>
           <Box component="footer" sx={{ py: 2 }}>
             <Typography level="body-xs" textAlign="center">

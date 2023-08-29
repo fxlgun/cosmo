@@ -10,7 +10,7 @@ import Link from "@mui/joy/Link";
 import Input from "@mui/joy/Input";
 import Typography from "@mui/joy/Typography";
 import Cosmo from "../image/Cosmo.png";
-import { LoginAPI } from "../api/auth";
+import { GoogleApi, LoginAPI } from "../api/auth";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
 import Loader from "../components/Loader";
+import GoogleIcon from "../components/GoogleIcon";
 
 /**
  * This template uses [`Inter`](https://fonts.google.com/specimen/Inter?query=inter) font.
@@ -40,17 +41,29 @@ export default function Login() {
     e.preventDefault();
     try {
       let res = await LoginAPI(credentials.email, credentials.password);
-      toast.success("Signed in successfully");
     } catch (err) {
       console.log(err);
-      toast.error("Please Check your Credentials");
+      toast.error("Check your credentials please.")
     }
   };
+
+  const googleSignIn = async () => {
+    const res =  await GoogleApi()
+    console.log(res);
+  }
 
   return loading ? (
     <Loader />
   ) : (
     <CssVarsProvider defaultMode="dark" disableTransitionOnChange>
+      <Toaster
+        toastOptions={{
+          style: {
+            backgroundColor: "black",
+            color: "white",
+          },
+        }}
+      />
       <CssBaseline />
       <GlobalStyles
         styles={{
@@ -59,14 +72,6 @@ export default function Login() {
             "--Cover-width": "40vw", // must be `vw` only
             "--Form-maxWidth": "700px",
             "--Transition-duration": "0.4s", // set to `none` to disable transition
-          },
-        }}
-      />
-      <Toaster
-        toastOptions={{
-          style: {
-            backgroundColor: "black",
-            color: "white",
           },
         }}
       />
@@ -179,6 +184,15 @@ export default function Login() {
                 Sign in
               </Button>
             </form>
+            <Button
+              variant="outlined"
+              color="neutral"
+              fullWidth
+              startDecorator={<GoogleIcon />}
+              onClick={googleSignIn}
+            >
+              Sign in with Google
+            </Button>
           </Box>
           <Box component="footer" sx={{ py: 3 }}>
             <Typography level="body-xs" textAlign="center">
