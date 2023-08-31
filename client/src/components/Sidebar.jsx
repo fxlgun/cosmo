@@ -28,6 +28,10 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 
 const Dropdown = styled("i")(({ theme }) => ({
   color: theme.vars.palette.text.tertiary,
@@ -121,10 +125,6 @@ export default function Sidebar() {
           <MenuIcon />
         </IconButton>
       </Box>
-      <Input
-        startDecorator={<i data-feather="search" />}
-        placeholder="Search"
-      />
       <Box
         sx={{
           minHeight: 0,
@@ -144,71 +144,37 @@ export default function Sidebar() {
           <ListItem>
             <ListItemButton>
               <ListItemDecorator>
-                <i data-feather="home" />
+                <HomeOutlinedIcon />
               </ListItemDecorator>
               <ListItemContent>Home</ListItemContent>
-              <Dropdown data-feather="chevron-down" />
             </ListItemButton>
           </ListItem>
           <ListItem>
             <ListItemButton>
               <ListItemDecorator>
-                <i data-feather="bar-chart-2" />
+                <NotificationsNoneOutlinedIcon />
               </ListItemDecorator>
-              <ListItemContent>Dashboard</ListItemContent>
-              <Dropdown data-feather="chevron-down" />
+              <ListItemContent>Notifications</ListItemContent>
             </ListItemButton>
           </ListItem>
           <ListItem>
             <ListItemButton>
               <ListItemDecorator>
-                <i data-feather="layers" />
+                <AccountCircleOutlinedIcon />
               </ListItemDecorator>
-              <ListItemContent>Projects</ListItemContent>
-              <Dropdown data-feather="chevron-down" />
+              <ListItemContent>My Profile</ListItemContent>
             </ListItemButton>
           </ListItem>
           <ListItem>
             <ListItemButton>
               <ListItemDecorator>
-                <i data-feather="check-square" />
+                <LogoutOutlinedIcon />
               </ListItemDecorator>
-              <ListItemContent>Tasks</ListItemContent>
-              <Dropdown data-feather="chevron-down" />
+              <ListItemContent>Log Out</ListItemContent>
             </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton>
-              <ListItemDecorator>
-                <i data-feather="flag" />
-              </ListItemDecorator>
-              <ListItemContent>Reporting</ListItemContent>
-              <Dropdown data-feather="chevron-down" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem nested>
-            <ListItemButton>
-              <ListItemDecorator>
-                <i data-feather="bar-chart-2" />
-              </ListItemDecorator>
-              <ListItemContent>Users</ListItemContent>
-              <i data-feather="chevron-up" />
-            </ListItemButton>
-            <List>
-              <ListItem>
-                <ListItemButton selected color="primary">
-                  My Profile
-                </ListItemButton>
-              </ListItem>
-              <ListItem>
-                <ListItemButton>New user</ListItemButton>
-              </ListItem>
-              <ListItem>
-                <ListItemButton>Role & Permission</ListItemButton>
-              </ListItem>
-            </List>
           </ListItem>
         </List>
+
         <List
           sx={{
             mt: "auto",
@@ -216,46 +182,7 @@ export default function Sidebar() {
             "--ListItem-radius": "8px",
             "--List-gap": "8px",
           }}
-        >
-          <ListItem>
-            <ListItemButton>
-              <ListItemDecorator>
-                <i data-feather="life-buoy" />
-              </ListItemDecorator>
-              <ListItemContent>Supports</ListItemContent>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton>
-              <ListItemDecorator>
-                <i data-feather="settings" />
-              </ListItemDecorator>
-              <ListItemContent>Settings</ListItemContent>
-            </ListItemButton>
-          </ListItem>
-        </List>
-        <Card
-          variant="soft"
-          color="primary"
-          invertedColors
-          sx={{ boxShadow: "none" }}
-        >
-          <Typography fontSize="sm" fontWeight="lg" mb={0.5}>
-            Used space
-          </Typography>
-          <Typography level="body-xs">
-            Your team has used 80% of your available space. Need more?
-          </Typography>
-          <LinearProgress value={80} determinate sx={{ my: 1.5 }} />
-          <Box sx={{ display: "flex", gap: 2 }}>
-            <Link fontSize="sm" component="button" fontWeight="lg">
-              Upgrade plan
-            </Link>
-            <Link fontSize="sm" component="button">
-              Dismiss
-            </Link>
-          </Box>
-        </Card>
+        ></List>
       </Box>
       <Divider />
       <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
