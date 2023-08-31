@@ -1,29 +1,29 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import * as React from 'react';
-import { styled } from '@mui/joy/styles';
-import GlobalStyles from '@mui/joy/GlobalStyles';
-import Avatar from '@mui/joy/Avatar';
-import Box from '@mui/joy/Box';
-import Card from '@mui/joy/Card';
-import Divider from '@mui/joy/Divider';
-import IconButton from '@mui/joy/IconButton';
-import Input from '@mui/joy/Input';
-import Link from '@mui/joy/Link';
-import LinearProgress from '@mui/joy/LinearProgress';
-import List from '@mui/joy/List';
-import ListItem from '@mui/joy/ListItem';
-import ListItemButton from '@mui/joy/ListItemButton';
-import ListItemContent from '@mui/joy/ListItemContent';
-import ListItemDecorator from '@mui/joy/ListItemDecorator';
-import Typography from '@mui/joy/Typography';
-import Sheet from '@mui/joy/Sheet';
-import MuiLogo from './Logo';
-import ColorSchemeToggle from './ColorSchemeToggle';
-import { closeSidebar, toggleSidebar } from '../utils';
-import "../App.css"
-import MenuIcon from '@mui/icons-material/Menu';
+import * as React from "react";
+import { styled } from "@mui/joy/styles";
+import GlobalStyles from "@mui/joy/GlobalStyles";
+import Avatar from "@mui/joy/Avatar";
+import Box from "@mui/joy/Box";
+import Card from "@mui/joy/Card";
+import Divider from "@mui/joy/Divider";
+import IconButton from "@mui/joy/IconButton";
+import Input from "@mui/joy/Input";
+import Link from "@mui/joy/Link";
+import LinearProgress from "@mui/joy/LinearProgress";
+import List from "@mui/joy/List";
+import ListItem from "@mui/joy/ListItem";
+import ListItemButton from "@mui/joy/ListItemButton";
+import ListItemContent from "@mui/joy/ListItemContent";
+import ListItemDecorator from "@mui/joy/ListItemDecorator";
+import Typography from "@mui/joy/Typography";
+import Sheet from "@mui/joy/Sheet";
+import MuiLogo from "./Logo";
+import ColorSchemeToggle from "./ColorSchemeToggle";
+import { closeSidebar, toggleSidebar } from "../utils";
+import "../App.css";
+import MenuIcon from "@mui/icons-material/Menu";
 
-const Dropdown = styled('i')(({ theme }) => ({
+const Dropdown = styled("i")(({ theme }) => ({
   color: theme.vars.palette.text.tertiary,
 }));
 
@@ -32,29 +32,30 @@ export default function Sidebar() {
     <Sheet
       className="Sidebar"
       sx={{
-        position: 'sticky',
-        transform: 'translateX(calc(100% * (var(--SideNavigation-slideIn, 0) - 1)))',
-        transition: 'transform 0.4s, width 0.4s',
+        position: "sticky",
+        transform:
+          "translateX(calc(100% * (var(--SideNavigation-slideIn, 0) - 1)))",
+        transition: "transform 0.4s, width 0.4s",
         zIndex: 10000,
-        height: '100dvh',
-        width: 'var(--Sidebar-width)',
+        height: "100dvh",
+        width: "var(--Sidebar-width)",
         top: 0,
         p: 1.5,
         py: 3,
         flexShrink: 0,
-        display: 'flex',
-        flexDirection: 'column',
+        display: "flex",
+        flexDirection: "column",
         gap: 2,
-        borderRight: '1px solid',
-        borderColor: 'divider',
+        borderRight: "1px solid",
+        borderColor: "divider",
       }}
     >
       <GlobalStyles
         styles={(theme) => ({
-          ':root': {
-            '--Sidebar-width': '224px',
-            [theme.breakpoints.up('lg')]: {
-              '--Sidebar-width': '256px',
+          ":root": {
+            "--Sidebar-width": "224px",
+            [theme.breakpoints.up("lg")]: {
+              "--Sidebar-width": "256px",
             },
           },
         })}
@@ -62,44 +63,64 @@ export default function Sidebar() {
       <Box
         className="Sidebar-overlay"
         sx={{
-          position: 'fixed',
+          position: "fixed",
           zIndex: 9998,
           top: 0,
           left: 0,
-          width: '100vw',
-          height: '100vh',
-          opacity: 'calc(var(--SideNavigation-slideIn, 0) - 0.2)',
-          transition: 'opacity 0.4s',
-          transform: 'translateX(calc(100% * (var(--SideNavigation-slideIn, 0) - 1) + var(--SideNavigation-slideIn, 0) * var(--Sidebar-width, 0px)))'
+          width: "100vw",
+          height: "100vh",
+          opacity: "calc(var(--SideNavigation-slideIn, 0) - 0.2)",
+          transition: "opacity 0.4s",
+          transform:
+            "translateX(calc(100% * (var(--SideNavigation-slideIn, 0) - 1) + var(--SideNavigation-slideIn, 0) * var(--Sidebar-width, 0px)))",
         }}
         onClick={() => closeSidebar()}
       />
-      <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-        <Typography  sx={{marginLeft:"10px", fontSize:"30px", fontFamily: 'League Spartan'}} fontWeight="xl">COSMO</Typography>
-        <IconButton
-        onClick={() => toggleSidebar()}
-        variant="outlined"
-        color="neutral"
-        size="sm"
+      <Box
+        sx={{
+          display: "flex",
+          gap: 1,
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
       >
-        <MenuIcon />
-      </IconButton>
+        <Typography
+          sx={{
+            marginLeft: "10px",
+            fontSize: "30px",
+            fontFamily: "League Spartan",
+          }}
+          fontWeight="xl"
+        >
+          COSMO
+        </Typography>
+        <IconButton
+          onClick={() => toggleSidebar()}
+          variant="outlined"
+          color="neutral"
+          size="sm"
+        >
+          <MenuIcon />
+        </IconButton>
       </Box>
-      <Input startDecorator={<i data-feather="search" />} placeholder="Search" />
+      <Input
+        startDecorator={<i data-feather="search" />}
+        placeholder="Search"
+      />
       <Box
         sx={{
           minHeight: 0,
-          overflow: 'hidden auto',
+          overflow: "hidden auto",
           flexGrow: 1,
-          display: 'flex',
-          flexDirection: 'column',
+          display: "flex",
+          flexDirection: "column",
         }}
       >
         <List
           sx={{
-            '--ListItem-radius': '8px',
-            '--List-gap': '4px',
-            '--List-nestedInsetStart': '40px',
+            "--ListItem-radius": "8px",
+            "--List-gap": "4px",
+            "--List-nestedInsetStart": "40px",
           }}
         >
           <ListItem>
@@ -172,10 +193,10 @@ export default function Sidebar() {
         </List>
         <List
           sx={{
-            mt: 'auto',
+            mt: "auto",
             flexGrow: 0,
-            '--ListItem-radius': '8px',
-            '--List-gap': '8px',
+            "--ListItem-radius": "8px",
+            "--List-gap": "8px",
           }}
         >
           <ListItem>
@@ -199,7 +220,7 @@ export default function Sidebar() {
           variant="soft"
           color="primary"
           invertedColors
-          sx={{ boxShadow: 'none' }}
+          sx={{ boxShadow: "none" }}
         >
           <Typography fontSize="sm" fontWeight="lg" mb={0.5}>
             Used space
@@ -208,7 +229,7 @@ export default function Sidebar() {
             Your team has used 80% of your available space. Need more?
           </Typography>
           <LinearProgress value={80} determinate sx={{ my: 1.5 }} />
-          <Box sx={{ display: 'flex', gap: 2 }}>
+          <Box sx={{ display: "flex", gap: 2 }}>
             <Link fontSize="sm" component="button" fontWeight="lg">
               Upgrade plan
             </Link>
@@ -219,7 +240,7 @@ export default function Sidebar() {
         </Card>
       </Box>
       <Divider />
-      <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+      <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
         <Avatar variant="outlined" src="/static/images/avatar/3.jpg" />
         <Box sx={{ minWidth: 0, flex: 1 }}>
           <Typography fontSize="sm" fontWeight="lg">
