@@ -37,6 +37,7 @@ export default function Login() {
       }
     });
   }, []);
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -49,6 +50,7 @@ export default function Login() {
 
   const googleSignIn = async () => {
     const res =  await GoogleApi()
+    toast.success("Succesfully signed in.")
     console.log(res);
   }
 

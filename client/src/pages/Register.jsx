@@ -46,7 +46,7 @@ export default function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      let res = await RegisterAPI(credentials.email, credentials.password);
+      let res = await RegisterAPI(credentials);
     } catch (err) {
       console.log(err);
     }
@@ -55,6 +55,7 @@ export default function Register() {
   const googleSignIn = async () => {
     const res =  await GoogleApi()
     console.log(res);
+    toast.success("Successfully logged in.")
   }
 
   return loading ? (

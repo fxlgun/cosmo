@@ -17,7 +17,7 @@ const Home = () => {
       }
     });
   }, []);
-  return loading? <Loader/> : <div>Home</div>;
+  return loading ? <Loader/> : <div>Home</div>;
 };
 
 export default Home;

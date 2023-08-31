@@ -14,12 +14,15 @@ import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
 import Typography from '@mui/joy/Typography';
 import Tabs from '@mui/joy/Tabs';
+import TabList from '@mui/joy/TabList';
+import Tab, { tabClasses } from '@mui/joy/Tab';
 import DropZone from './DropZone';
 import FileUpload from './FileUpload';
 import CountrySelector from './CountrySelector';
 import EditorToolbar from './EditorToolbar';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 
-export default function Profile() {
+export default function MyProfile() {
   return (
     <Box
       sx={{
@@ -27,6 +30,7 @@ export default function Profile() {
         maxWidth: 1200,
         width: '100%',
         mx: 'auto',
+        mt:'60px'
       }}
     >
       <Typography level="h1" fontSize="xl2" sx={{ mb: 1 }}>
@@ -51,6 +55,7 @@ export default function Profile() {
             },
           }}
         />
+        
         <Box
           sx={{
             pt: 3,
@@ -84,7 +89,7 @@ export default function Profile() {
             <FormLabel>Email</FormLabel>
             <Input
               type="email"
-              startDecorator={<i data-feather="mail" />}
+              startDecorator={<EmailOutlinedIcon />}
               placeholder="email"
               defaultValue="siriwatk@test.com"
             />

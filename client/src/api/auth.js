@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { toast } from "react-hot-toast";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 
 export const LoginAPI = async (email, password) => {
     try {
@@ -12,14 +13,19 @@ export const LoginAPI = async (email, password) => {
     }
   };
 
-  export const RegisterAPI = async (email, password) => {
+  export const RegisterAPI = async (credentials) => {
     try {
-      let response = await createUserWithEmailAndPassword(auth, email, password);
+      let response = await createUserWithEmailAndPassword(auth, credentials.email, credentials.password);
+
       toast.success("Account Created");
-      let response2 = signInWithEmailAndPassword(auth, email, password);
+      const {password, ...creds} = credentials
+      const docRef = await setDoc(doc(collection(db, "users"), credentials.email), creds);
+      console.log(docRef);
+      let response2 = await signInWithEmailAndPassword(auth, credentials.email, credentials.password);
       return response;
     } catch (err) {
       toast.error("Trouble Creating Account")
+      console.log(err);
     }
   };  
 
@@ -27,7 +33,6 @@ export const GoogleApi = () => {
   try {
     const googleProvider = new GoogleAuthProvider()
     const response = signInWithPopup(auth, googleProvider)
-    toast.success("Successfully logged in.")
     return response 
   } catch (err) {
     
