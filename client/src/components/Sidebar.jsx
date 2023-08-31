@@ -22,12 +22,30 @@ import ColorSchemeToggle from "./ColorSchemeToggle";
 import { closeSidebar, toggleSidebar } from "../utils";
 import "../App.css";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth, db } from "../firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 const Dropdown = styled("i")(({ theme }) => ({
   color: theme.vars.palette.text.tertiary,
 }));
 
 export default function Sidebar() {
+  const [deets, setDeets] = useState({});
+  let navigate = useNavigate();
+  useEffect(() => {
+    onAuthStateChanged(auth, async (res) => {
+      if (!res?.accessToken) {
+        navigate("/login");
+      } else {
+        const userDeets = await getDoc(doc(db, "users", res.email));
+        setDeets(userDeets.data());
+      }
+    });
+  }, []);
   return (
     <Sheet
       className="Sidebar"
@@ -244,9 +262,9 @@ export default function Sidebar() {
         <Avatar variant="outlined" src="/static/images/avatar/3.jpg" />
         <Box sx={{ minWidth: 0, flex: 1 }}>
           <Typography fontSize="sm" fontWeight="lg">
-            Siriwat K.
+            {deets.firstName} {deets.lastName}
           </Typography>
-          <Typography level="body-xs">siriwatk@test.com</Typography>
+          <Typography level="body-xs">{deets.email}</Typography>
         </Box>
         <IconButton variant="plain" color="neutral">
           <i data-feather="log-out" />

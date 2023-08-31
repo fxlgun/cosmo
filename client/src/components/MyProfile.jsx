@@ -22,7 +22,7 @@ import CountrySelector from './CountrySelector';
 import EditorToolbar from './EditorToolbar';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 
-export default function MyProfile() {
+export default function MyProfile({deets}) {
   return (
     <Box
       sx={{
@@ -77,11 +77,11 @@ export default function MyProfile() {
           <Box sx={{ display: { xs: 'contents', sm: 'flex' }, gap: 2 }}>
             <FormControl sx={{ flex: 1 }}>
               <FormLabel sx={{ display: { sm: 'none' } }}>First name</FormLabel>
-              <Input placeholder="first name" defaultValue="Siriwat" />
+              <Input placeholder="first name" defaultValue={deets.firstName} />
             </FormControl>
             <FormControl sx={{ flex: 1 }}>
               <FormLabel sx={{ display: { sm: 'none' } }}>Last name</FormLabel>
-              <Input placeholder="last name" defaultValue="K." />
+              <Input placeholder="last name" defaultValue={deets.lastName} />
             </FormControl>
           </Box>
           <Divider role="presentation" />
@@ -91,7 +91,7 @@ export default function MyProfile() {
               type="email"
               startDecorator={<EmailOutlinedIcon />}
               placeholder="email"
-              defaultValue="siriwatk@test.com"
+              defaultValue={deets.email}
             />
           </FormControl>
           <Divider role="presentation" />
@@ -117,25 +117,22 @@ export default function MyProfile() {
           <Divider role="presentation" />
           <FormControl sx={{ display: { sm: 'contents' } }}>
             <FormLabel>Role</FormLabel>
-            <Input defaultValue="UI Developer" />
+            <Input defaultValue="" />
           </FormControl>
           <Divider role="presentation" />
           <CountrySelector />
           <Divider role="presentation" />
           <FormControl sx={{ display: { sm: 'contents' } }}>
-            <FormLabel>Timezone</FormLabel>
-            <Select startDecorator={<i data-feather="clock" />} defaultValue="1">
-              <Option value="1">
-                Indochina Time (Bangkok){' '}
-                <Typography textColor="text.tertiary" ml={0.5}>
-                  — GMT+07:00
-                </Typography>
+            <FormLabel>Type</FormLabel>
+            <Select  defaultValue={deets.type}>
+              <Option value="aspirant">
+                Aspirant
               </Option>
-              <Option value="2">
-                Indochina Time (Ho Chi Minh City){' '}
-                <Typography textColor="text.tertiary" ml={0.5}>
-                  — GMT+07:00
-                </Typography>
+              <Option value="studyingAbroad">
+                Studying Abroad
+              </Option>
+              <Option value="workingAbroad">
+                Working Abroad
               </Option>
             </Select>
           </FormControl>
@@ -155,31 +152,6 @@ export default function MyProfile() {
               275 characters left
             </FormHelperText>
           </div>
-          <Divider role="presentation" />
-          <div>
-            <FormLabel>Portfolio projects</FormLabel>
-            <FormHelperText>Share a few snippets of your work.</FormHelperText>
-          </div>
-          <Stack useFlexGap spacing={1.5}>
-            <DropZone />
-            <FileUpload
-              fileName="Tech design requirements.pdf"
-              fileSize="200 KB"
-              progress={100}
-            />
-            <FileUpload
-              icon={<i data-feather="film" />}
-              fileName="Dashboard prototype recording.mp4"
-              fileSize="16 MB"
-              progress={40}
-            />
-            <FileUpload
-              icon={<i data-feather="upload-cloud" />}
-              fileName="Dashboard prototype FINAL.fig"
-              fileSize="4.2 MB"
-              progress={80}
-            />
-          </Stack>
           <Divider role="presentation" />
           <Box
             sx={{

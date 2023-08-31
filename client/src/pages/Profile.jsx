@@ -13,10 +13,9 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../firebase";
 import Loader from "../components/Loader";
 import { useState } from "react";
-import { collection, getDoc, query, where } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 
 export default function Profile() {
-  const [user, setUser] = useState({});
   const [deets, setDeets] = useState({});
   const [loading, setLoading] = React.useState(true);
   let navigate = useNavigate();
@@ -25,12 +24,9 @@ export default function Profile() {
       if (!res?.accessToken) {
         navigate("/login");
       } else {
-        // const userDeets = await getDoc(query(collection(db,"users"), where("email", "==", res.email)))
-        // setDeets(userDeets)
-        // console.log(userDeets);
+        const userDeets = await getDoc(doc(db, "users", res.email))
+        setDeets(userDeets.data());
         setLoading(false);
-        console.log(res);
-        setUser(res);
       }
     });
   }, []);
@@ -81,7 +77,7 @@ export default function Profile() {
             overflow: "auto",
           })}
         >
-          <MyProfile />
+          <MyProfile deets={deets} />
         </Box>
       </Box>
     </CssVarsProvider>
