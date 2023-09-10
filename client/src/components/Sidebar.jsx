@@ -32,6 +32,8 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import { HiOutlineHome } from "react-icons/hi"
+import { LogOutAPI } from "../api/auth";
 
 const Dropdown = styled("i")(({ theme }) => ({
   color: theme.vars.palette.text.tertiary,
@@ -144,7 +146,7 @@ export default function Sidebar() {
           <ListItem>
             <ListItemButton>
               <ListItemDecorator>
-                <HomeOutlinedIcon />
+                <HiOutlineHome />
               </ListItemDecorator>
               <ListItemContent>Home</ListItemContent>
             </ListItemButton>
@@ -166,7 +168,7 @@ export default function Sidebar() {
             </ListItemButton>
           </ListItem>
           <ListItem>
-            <ListItemButton>
+            <ListItemButton onClick={LogOutAPI}>
               <ListItemDecorator>
                 <LogoutOutlinedIcon />
               </ListItemDecorator>

@@ -4,6 +4,9 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import Loader from "../components/Loader";
+import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
+import { CssVarsProvider } from "@mui/joy";
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -17,7 +20,11 @@ const Home = () => {
       }
     });
   }, []);
-  return loading ? <Loader/> : <div>Home</div>;
+  return loading ? <Loader/> : <CssVarsProvider>
+    <Header/>
+    <Sidebar/>
+    THE HOME PAGE WILL BE SHOWN HERE , WORK IN PROGRESS
+  </CssVarsProvider>;
 };
 
 export default Home;

@@ -10,7 +10,16 @@ import Link from "@mui/joy/Link";
 import Input from "@mui/joy/Input";
 import Typography from "@mui/joy/Typography";
 import Cosmo from "../image/Cosmo.png";
-import { Chip, Radio, RadioGroup } from "@mui/joy";
+import {
+  Avatar,
+  Chip,
+  ListDivider,
+  ListItemDecorator,
+  Option,
+  Radio,
+  RadioGroup,
+  Select,
+} from "@mui/joy";
 import CheckIcon from "@mui/icons-material/Check";
 import { GoogleApi, RegisterAPI } from "../api/auth";
 import { Toaster, toast } from "react-hot-toast";
@@ -20,6 +29,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
 import Loader from "../components/Loader";
 import GoogleIcon from "../components/GoogleIcon";
+import { countries } from "../components/CountrySelector";
 
 /**
  * This template uses [`Inter`](https://fonts.google.com/specimen/Inter?query=inter) font.
@@ -32,7 +42,28 @@ export default function Register() {
     type: null,
     firstName: "",
     lastName: "",
+    country: "",
   });
+
+  function renderValue(option) {
+    if (!option) {
+      return null;
+    }
+    
+    return (
+      <React.Fragment>
+        <ListItemDecorator>
+          <Avatar
+            size="sm"
+            src={`https://flagcdn.com/${option.value.toLowerCase()}.svg`}
+            sx={{ scale: "0.8" }}
+          />
+        </ListItemDecorator>
+        {option.label}
+      </React.Fragment>
+    );
+  }
+
   const navigate = useNavigate();
   useEffect(() => {
     onAuthStateChanged(auth, (res) => {
@@ -51,12 +82,11 @@ export default function Register() {
       console.log(err);
     }
   };
-
-  const googleSignIn = async () => {
-    const res =  await GoogleApi()
+    const googleSignIn = async () => {
+    const res = await GoogleApi();
     console.log(res);
-    toast.success("Successfully logged in.")
-  }
+    toast.success("Successfully logged in.");
+  };
 
   return loading ? (
     <Loader />
@@ -185,9 +215,47 @@ export default function Register() {
                   }
                 />
               </FormControl>
+              <FormControl required>
+                <FormLabel>Country</FormLabel>
+                <Select
+                  onChange={(e)=> setCredentials({...credentials, country:e.target.innerText})}
+                  placeholder="Your Country"
+                  defaultValue="1"
+                  slotProps={{
+                    listbox: {
+                      sx: {
+                        "--ListItemDecorator-size": "44px",
+                      },
+                    },
+                  }}
+                  sx={{
+                    "--ListItemDecorator-size": "44px",
+                    minWidth: 240,
+                  }}
+                  renderValue={renderValue}
+                >
+                  {countries.map((option, index) => (
+                    <React.Fragment key={option.value}>
+                      {index !== 0 ? (
+                        <ListDivider role="none" inset="startContent" />
+                      ) : null}
+                      <Option value={option.code} label={option.label}>
+                        <ListItemDecorator>
+                          <Avatar
+                            sx={{ scale: "0.8" }}
+                            size="sm"
+                            src={`https://flagcdn.com/${option.code.toLowerCase()}.svg`}
+                          />
+                        </ListItemDecorator>
+                        {option.label}
+                      </Option>
+                    </React.Fragment>
+                  ))}
+                </Select>
+              </FormControl>
               <RadioGroup
-                name="best-movie"
-                aria-labelledby="best-movie"
+                name="type"
+                aria-labelledby="type"
                 orientation="horizontal"
                 sx={{ flexWrap: "wrap", gap: 1 }}
               >

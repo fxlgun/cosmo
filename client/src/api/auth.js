@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
 import { auth, db } from "../firebase";
 import { toast } from "react-hot-toast";
 import { addDoc, collection, doc, setDoc } from "firebase/firestore";
@@ -37,4 +37,14 @@ export const GoogleApi = () => {
   } catch (err) {
     
   }
+}
+
+export const LogOutAPI = async()  => {
+  signOut(auth).then(() => {
+    toast.success('Signed Out Successfully')
+  }).catch((error) => {
+    console.log(error);
+    toast.error("Something went wrong :/")
+  });
+
 }
