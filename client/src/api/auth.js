@@ -29,10 +29,11 @@ export const LoginAPI = async (email, password) => {
     }
   };  
 
-export const GoogleApi = () => {
+export const GoogleApi = async () => {
   try {
     const googleProvider = new GoogleAuthProvider()
-    const response = signInWithPopup(auth, googleProvider)
+    const response = await signInWithPopup(auth, googleProvider)
+    console.log(response);
     return response 
   } catch (err) {
     
@@ -46,5 +47,9 @@ export const LogOutAPI = async()  => {
     console.log(error);
     toast.error("Something went wrong :/")
   });
+
+}
+
+const newUser = () => {
 
 }

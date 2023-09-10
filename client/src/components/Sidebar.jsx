@@ -19,7 +19,7 @@ import Typography from "@mui/joy/Typography";
 import Sheet from "@mui/joy/Sheet";
 import MuiLogo from "./Logo";
 import ColorSchemeToggle from "./ColorSchemeToggle";
-import { closeSidebar, toggleSidebar } from "../utils";
+import { closeSidebar, openSidebar, toggleSidebar } from "../utils";
 import "../App.css";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
@@ -52,6 +52,7 @@ export default function Sidebar() {
       }
     });
   }, []);
+
   return (
     <Sheet
       className="Sidebar"
@@ -84,7 +85,7 @@ export default function Sidebar() {
           },
         })}
       />
-      <Box
+      {/* <Box
         className="Sidebar-overlay"
         sx={{
           position: "fixed",
@@ -98,8 +99,8 @@ export default function Sidebar() {
           transform:
             "translateX(calc(100% * (var(--SideNavigation-slideIn, 0) - 1) + var(--SideNavigation-slideIn, 0) * var(--Sidebar-width, 0px)))",
         }}
-        onClick={() => closeSidebar()}
-      />
+        
+      /> */}
       <Box
         sx={{
           display: "flex",

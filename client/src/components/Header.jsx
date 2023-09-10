@@ -1,50 +1,93 @@
-import * as React from 'react';
-import GlobalStyles from '@mui/joy/GlobalStyles';
-import IconButton from '@mui/joy/IconButton';
-import Sheet from '@mui/joy/Sheet';
-import MuiLogo from './Logo';
-import ColorSchemeToggle from './ColorSchemeToggle';
-import { toggleSidebar } from '../utils';
-import MenuIcon from '@mui/icons-material/Menu'
-import { Typography } from '@mui/joy';
+import React from 'react';
+import {
+  Box,
+  Button,
+  CssBaseline,
+  CssVarsProvider,
+  Divider,
+  GlobalStyles,
+  IconButton,
+  Input,
+  Sheet,
+  Table,
+  Typography,
+} from "@mui/joy";
+import Post from "../components/Post";
+import Layout from "../components/Layout";
+import Navigation from "../components/Navigation";
+import MenuIcon from "@mui/icons-material/Menu";
+import FindInPageRoundedIcon from "@mui/icons-material/FindInPageRounded";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import BookRoundedIcon from "@mui/icons-material/BookRounded";
 
-export default function Header() {
+const Header = ({setDrawerOpen}) => {
   return (
-    <Sheet
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        position: 'fixed',
-        top: 0,
-        width: '100vw',
-        height: 'var(--Header-height)',
-        zIndex: 9995,
-        py: 4,
-        px: 2,
-        gap: 1,
-        boxShadow: 'sm',
-      }}
-    >
-      <GlobalStyles
-        styles={(theme) => ({
-          ':root': {
-            '--Header-height': '52px',
-            [theme.breakpoints.up('md')]: {
-              '--Header-height': '0px',
-            },
-          },
-        })}
-      />
-      <IconButton
-        onClick={() => toggleSidebar()}
-        variant="outlined"
-        color="neutral"
-        size="sm"
-      >
-        <MenuIcon />
-      </IconButton>
-      <Typography sx={{marginLeft:"10px", fontSize:"30px", fontFamily: 'League Spartan', paddingTop:"5px"}} fontWeight="xl">COSMO</Typography>
-      
-    </Sheet>
-  );
+    <Layout.Header>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 1.5,
+            }}
+          >
+            <IconButton
+              variant="outlined"
+              size="sm"
+              onClick={() => setDrawerOpen(true)}
+              sx={{ display: { sm: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            
+            <Typography
+              sx={{
+                marginLeft: "10px",
+                fontSize: "30px",
+                fontFamily: "League Spartan",
+                paddingTop: "5px",
+              }}
+              fontWeight="xl"
+            >
+              COSMO
+            </Typography>
+          </Box>
+          <Input
+            size="sm"
+            variant="outlined"
+            placeholder="Search anything…"
+            startDecorator={<SearchRoundedIcon color="primary" />}
+            sx={{
+              flexBasis: "500px",
+              display: {
+                xs: "none",
+                sm: "flex",
+              },
+              boxShadow: "sm",
+            }}
+          />
+          <Box sx={{ display: "flex", flexDirection: "row", gap: 1.5 }}>
+            <IconButton
+              size="sm"
+              variant="outlined"
+              color="neutral"
+              sx={{ display: { xs: "inline-flex", sm: "none" } }}
+            >
+              <SearchRoundedIcon />
+            </IconButton>
+
+            <IconButton
+              size="sm"
+              variant="soft"
+              color="neutral"
+              component="a"
+              href="/blog/first-look-at-joy/"
+            >
+              <BookRoundedIcon />
+            </IconButton>
+          </Box>
+        </Layout.Header>
+  )
 }
+
+export default Header

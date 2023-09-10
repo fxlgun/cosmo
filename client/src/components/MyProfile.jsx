@@ -29,7 +29,6 @@ export default function MyProfile({ deets }) {
         flex: 1,
         maxWidth: 1200,
         width: "100%",
-        mx: "auto",
         mt: "60px",
       }}
     >

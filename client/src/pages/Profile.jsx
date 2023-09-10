@@ -14,72 +14,143 @@ import { auth, db } from "../firebase";
 import Loader from "../components/Loader";
 import { useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
+import {
+  Button,
+  Divider,
+  IconButton,
+  Input,
+  Sheet,
+  Table,
+  Typography,
+} from "@mui/joy";
+import Post from "../components/Post";
+import Layout from "../components/Layout";
+import Navigation from "../components/Navigation";
+import MenuIcon from "@mui/icons-material/Menu";
+import FindInPageRoundedIcon from "@mui/icons-material/FindInPageRounded";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import BookRoundedIcon from "@mui/icons-material/BookRounded";
 
-export default function Profile() {
-  const [deets, setDeets] = useState({});
-  const [loading, setLoading] = React.useState(true);
+const Home = () => {
+  const [loading, setLoading] = useState(true);
+  const [deets, setDeets] = useState({})
   let navigate = useNavigate();
   useEffect(() => {
-    onAuthStateChanged(auth, async (res) => {
+    onAuthStateChanged(auth,async (res) => {
       if (!res?.accessToken) {
         navigate("/login");
       } else {
         const userDeets = await getDoc(doc(db, "users", res.email))
-        setDeets(userDeets.data());
+      setDeets(userDeets.data());
         setLoading(false);
       }
     });
   }, []);
-
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
   return loading ? (
     <Loader />
   ) : (
     <CssVarsProvider disableTransitionOnChange>
-      <GlobalStyles
-        styles={(theme) => ({
-          "[data-feather], .feather": {
-            color: `var(--Icon-color, ${theme.vars.palette.text.icon})`,
-            margin: "var(--Icon-margin)",
-            fontSize: `var(--Icon-fontSize, ${theme.vars.fontSize.xl})`,
-            width: "1em",
-            height: "1em",
-          },
-        })}
-      />
       <CssBaseline />
-      <Box sx={{ display: "flex", minHeight: "100dvh" }}>
-        <Header />
-        <Sidebar />
-        <Box
-          component="main"
-          className="MainContent"
-          sx={(theme) => ({
-            "--main-paddingTop": {
-              xs: `calc(${theme.spacing(2)} + var(--Header-height, 0px))`,
-              md: "32px",
-            },
-            px: {
-              xs: 2,
-              md: 3,
-            },
-            pt: "var(--main-paddingTop)",
-            pb: {
-              xs: 2,
-              sm: 2,
-              md: 3,
-            },
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-            minWidth: 0,
-            height: "100dvh",
-            gap: 1,
-            overflow: "auto",
-          })}
-        >
-          <MyProfile deets={deets} />
-        </Box>
-      </Box>
+      {drawerOpen && (
+        <Layout.SideDrawer onClose={() => setDrawerOpen(false)}>
+          <Navigation />
+        </Layout.SideDrawer>
+      )}
+      <Layout.Root
+        sx={{
+          gridTemplateColumns: {
+            xs: "1fr",
+            sm: "minmax(64px, 200px) minmax(450px, 1fr)",
+            md: "minmax(160px, 300px) minmax(600px, 1fr) minmax(300px, 420px)",
+          },
+          ...(drawerOpen && {
+            height: "100vh",
+            overflow: "hidden",
+          }),
+        }}
+      >
+        <Layout.Header>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 1.5,
+            }}
+          >
+            <IconButton
+              variant="outlined"
+              size="sm"
+              onClick={() => setDrawerOpen(true)}
+              sx={{ display: { sm: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              sx={{
+                marginLeft: "10px",
+                fontSize: "30px",
+                fontFamily: "League Spartan",
+                paddingTop: "5px",
+              }}
+              fontWeight="xl"
+            >
+              COSMO
+            </Typography>
+          </Box>
+          <Input
+            size="sm"
+            variant="outlined"
+            placeholder="Search anything…"
+            startDecorator={<SearchRoundedIcon color="primary" />}
+            sx={{
+              flexBasis: "500px",
+              display: {
+                xs: "none",
+                sm: "flex",
+              },
+              boxShadow: "sm",
+            }}
+          />
+          <Box sx={{ display: "flex", flexDirection: "row", gap: 1.5 }}>
+            <IconButton
+              size="sm"
+              variant="outlined"
+              color="neutral"
+              sx={{ display: { xs: "inline-flex", sm: "none" } }}
+            >
+              <SearchRoundedIcon />
+            </IconButton>
+
+            <IconButton
+              size="sm"
+              variant="soft"
+              color="neutral"
+              component="a"
+              href="/blog/first-look-at-joy/"
+            >
+              <BookRoundedIcon />
+            </IconButton>
+          </Box>
+        </Layout.Header>
+        <Layout.SideNav>
+          <Navigation />
+        </Layout.SideNav>
+        <Layout.Main>
+          
+          <MyProfile deets={deets}/>
+        </Layout.Main>
+        <Sheet
+          sx={{
+            display: { xs: "none", sm: "initial" },
+            borderLeft: "1px solid",
+            borderColor: "neutral.outlinedBorder",
+          }}
+        ></Sheet>
+      </Layout.Root>
     </CssVarsProvider>
   );
-}
+};
+
+export default Home;
