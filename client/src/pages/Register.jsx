@@ -218,7 +218,7 @@ export default function Register() {
               <FormControl required>
                 <FormLabel>Country</FormLabel>
                 <Select
-                  onChange={(e)=> setCredentials({...credentials, country:e.target.innerText})}
+                  onChange={(e)=> setCredentials({...credentials, country:e?.target.innerText})}
                   placeholder="Your Country"
                   defaultValue="1"
                   slotProps={{
