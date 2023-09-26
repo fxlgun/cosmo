@@ -9,7 +9,7 @@ import DialogTitle from "@mui/joy/DialogTitle";
 import DialogContent from "@mui/joy/DialogContent";
 import { IconButton, Modal, ModalDialog, Textarea } from "@mui/joy";
 import CloseIcon from "@mui/icons-material/Close";
-import { addPost, getPost } from "../api/posts";
+import { addPost } from "../api/posts";
 import toast, { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
 
@@ -35,6 +35,7 @@ export default function AddPost({ user, fetchPosts }) {
 
   useEffect(()=>{
     fetchPosts()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[open])
 
   return (

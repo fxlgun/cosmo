@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from "react";
-import AspectRatio from "@mui/joy/AspectRatio";
 import Avatar from "@mui/joy/Avatar";
 import Box from "@mui/joy/Box";
 import Card from "@mui/joy/Card";
@@ -15,11 +14,8 @@ import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ModeCommentOutlined from "@mui/icons-material/ModeCommentOutlined";
 import SendOutlined from "@mui/icons-material/SendOutlined";
-import Face from "@mui/icons-material/Face";
 import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded";
-import { ImageList, ImageListItem } from "@mui/material";
 import ImgCarousel from "./ImgCarousel";
-import { Carousel } from "react-carousel-minimal";
 import { Button, Divider } from "@mui/joy";
 import { commentPost, getSinglePost, likePost } from "../api/posts";
 import { useState } from "react";
@@ -50,6 +46,7 @@ export default function Post({ post, user, posts }) {
 
   useEffect(() => {
     fetchPost();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [posts]);
 
   return (
@@ -82,7 +79,7 @@ export default function Post({ post, user, posts }) {
         </Box>
       </CardOverflow>
       <CardContent>
-        <Typography fontSize="200%" fontWeight="lg">
+        <Typography fontSize="170%" fontWeight="lg">
           {data?.title}
         </Typography>
         <Typography fontSize="lg">{data?.text}</Typography>
