@@ -4,42 +4,39 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import Loader from "../components/Loader";
-import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
-import {
-  Box,
-  Button,
-  CssBaseline,
-  CssVarsProvider,
-  Divider,
-  GlobalStyles,
-  IconButton,
-  Input,
-  Sheet,
-  Table,
-  Typography,
-} from "@mui/joy";
+import { CssBaseline, CssVarsProvider, Sheet } from "@mui/joy";
 import Post from "../components/Post";
 import Layout from "../components/Layout";
 import Navigation from "../components/Navigation";
-import MenuIcon from "@mui/icons-material/Menu";
-import FindInPageRoundedIcon from "@mui/icons-material/FindInPageRounded";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import BookRoundedIcon from "@mui/icons-material/BookRounded";
+import AddPost from "../components/AddPost";
+import { getPost } from "../api/posts";
 
 const Home = () => {
+  const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
+  const [posts, setPosts] = useState([]);
   let navigate = useNavigate();
   useEffect(() => {
-    onAuthStateChanged(auth, (res) => {
+    onAuthStateChanged(auth, async (res) => {
       if (!res?.accessToken) {
+        console.log(res);
         navigate("/login");
       } else {
+        setUser(res);
         setLoading(false);
+        fetchPosts()
       }
     });
   }, []);
+
+  const fetchPosts = async () => {
+    const newPosts = await getPost();
+    setPosts(newPosts);
+  };
+
   const [drawerOpen, setDrawerOpen] = React.useState(false);
+
   return loading ? (
     <Loader />
   ) : (
@@ -63,19 +60,13 @@ const Home = () => {
           }),
         }}
       >
-        <Header setDrawerOpen={setDrawerOpen}/>
+        <Header user={user} setDrawerOpen={setDrawerOpen} />
         <Layout.SideNav>
           <Navigation />
         </Layout.SideNav>
         <Layout.Main>
-          <Post/>
-          <Post/>
-          <Post/>
-          <Post/>
-          <Post/>
-          <Post/>
-          <Post/>
-          
+          <AddPost fetchPosts={fetchPosts} user={user} />
+          {posts?.map((post) => <Post post={post} user={user} posts={posts} />)}
         </Layout.Main>
         <Sheet
           sx={{

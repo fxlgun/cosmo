@@ -5,7 +5,6 @@ import CssBaseline from "@mui/joy/CssBaseline";
 import Box from "@mui/joy/Box";
 
 import Header from "../components/Header";
-import Sidebar from "../components/Sidebar";
 import MyProfile from "../components/MyProfile";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";

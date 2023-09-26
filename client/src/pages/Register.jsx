@@ -40,8 +40,6 @@ export default function Register() {
     email: "",
     password: "",
     type: null,
-    firstName: "",
-    lastName: "",
     country: "",
   });
 
@@ -49,7 +47,7 @@ export default function Register() {
     if (!option) {
       return null;
     }
-    
+
     return (
       <React.Fragment>
         <ListItemDecorator>
@@ -82,7 +80,7 @@ export default function Register() {
       console.log(err);
     }
   };
-    const googleSignIn = async () => {
+  const googleSignIn = async () => {
     const res = await GoogleApi();
     console.log(res);
     toast.success("Successfully logged in.");
@@ -180,27 +178,16 @@ export default function Register() {
             </div>
             <form onSubmit={handleRegister}>
               <FormControl required>
-                <FormLabel>First Name</FormLabel>
+                <FormLabel>Name</FormLabel>
                 <Input
                   autoComplete="on"
                   type="text"
-                  name="firstName"
+                  name="name"
                   onChange={(e) =>
                     setCredentials({
                       ...credentials,
-                      firstName: e.target.value,
+                      name: e.target.value,
                     })
-                  }
-                />
-              </FormControl>
-              <FormControl required>
-                <FormLabel>Last Name</FormLabel>
-                <Input
-                  autoComplete="on"
-                  type="text"
-                  name="lastName"
-                  onChange={(e) =>
-                    setCredentials({ ...credentials, lastName: e.target.value })
                   }
                 />
               </FormControl>
@@ -218,7 +205,12 @@ export default function Register() {
               <FormControl required>
                 <FormLabel>Country</FormLabel>
                 <Select
-                  onChange={(e)=> setCredentials({...credentials, country:e?.target.innerText})}
+                  onChange={(e) =>
+                    setCredentials({
+                      ...credentials,
+                      country: e?.target.innerText,
+                    })
+                  }
                   placeholder="Your Country"
                   defaultValue="1"
                   slotProps={{
@@ -260,9 +252,9 @@ export default function Register() {
                 sx={{ flexWrap: "wrap", gap: 1 }}
               >
                 {[
-                  { name: "Aspirant", value: "aspirant" },
-                  { name: "Studying Abroad", value: "studyingAbroad" },
-                  { name: "Working Abroad", value: "workingAbroad" },
+                  { name: "Aspirant", value: "Aspirant" },
+                  { name: "Studying Abroad", value: "Studying-Abroad" },
+                  { name: "Working Abroad", value: "Working-Abroad" },
                 ].map((item) => {
                   const checked = credentials.type === item.value;
                   return (
