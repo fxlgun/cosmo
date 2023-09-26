@@ -78,7 +78,7 @@ export default function Post({ post, user, posts }) {
       <Divider />
       <CardOverflow>
         <Box sx={{ width: "100%", overflowY: "auto" }}>
-          <ImgCarousel images={data.img} />
+          <ImgCarousel images={data?.img} />
         </Box>
       </CardOverflow>
       <CardContent>
