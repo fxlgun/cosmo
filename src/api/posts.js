@@ -40,7 +40,8 @@ export const getPost = async () => {
 };
 
 export const likePost = async (email, post, setData) => {
-  const likesArray = post?.likes;
+  const newArray = await getSinglePost(post.id)
+  const likesArray = newArray?.likes;
   likesArray?.includes(email)
     ? likesArray?.splice(likesArray?.indexOf(email))
     : likesArray?.push(email);
@@ -50,7 +51,8 @@ export const likePost = async (email, post, setData) => {
   });
 };
 
-export const commentPost = (newData) => {
-  console.log(newData);
-  updateDoc(doc(db, "posts", newData.id), newData);
+export const commentPost = async (newData, commentArray) => {
+  await updateDoc(doc(db, "posts", newData.id), { comments: commentArray });
+  const newArray = await getSinglePost(newData.id);
+  return newArray.comments
 };

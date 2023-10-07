@@ -30,12 +30,12 @@ export default function Post({ post, user, posts }) {
     await likePost(user.email, data, setData);
   };
 
-  const handleComment = (e) => {
+  const handleComment = async(e) => {
     e.preventDefault();
     const commentArray = data.comments
     commentArray.push({email:user.email, displayName:user.displayName, photoURL:user.photoURL, comment:comment})
-    setData({...data, comments: commentArray})
-    commentPost(data);  
+    const newArray = await commentPost(data, commentArray);
+    setData({...data,comments: newArray})
     setComment("")
   };
 

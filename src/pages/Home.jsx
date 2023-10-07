@@ -20,7 +20,6 @@ const Home = () => {
   useEffect(() => {
     onAuthStateChanged(auth, async (res) => {
       if (!res?.accessToken) {
-        console.log(res);
         navigate("/login");
       } else {
         setUser(res);
