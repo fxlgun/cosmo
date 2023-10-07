@@ -21,7 +21,6 @@ import { commentPost, getSinglePost, likePost } from "../api/posts";
 import { useState } from "react";
 import { useEffect } from "react";
 import Comment from "./Comment";
-import toast from "react-hot-toast";
 
 export default function Post({ post, user, posts }) {
   const [data, setData] = useState(post);
@@ -33,17 +32,11 @@ export default function Post({ post, user, posts }) {
 
   const handleComment = (e) => {
     e.preventDefault();
-    const commentArray = data.comments;
-    if (comment !== "") {
-      commentArray.push({
-        email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-        comment: comment,
-      });
-    } else {
-      toast.error("Comment can't be empty!");
-    }
+    const commentArray = data.comments
+    commentArray.push({email:user.email, displayName:user.displayName, photoURL:user.photoURL, comment:comment})
+    setData({...data, comments: commentArray})
+    commentPost(data);  
+    setComment("")
   };
 
   const fetchPost = async () => {
@@ -53,7 +46,7 @@ export default function Post({ post, user, posts }) {
 
   useEffect(() => {
     fetchPost();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [posts]);
 
   return (
@@ -191,12 +184,7 @@ export default function Post({ post, user, posts }) {
         </CardContent>
       </form>
       <CardContent orientation="vertical" sx={{ gap: 1 }}>
-        {data?.comments
-          ?.slice()
-          .reverse()
-          .map((record) => (
-            <Comment record={record} />
-          ))}
+        {data?.comments?.slice().reverse().map((record)=> <Comment record={record} />)}
       </CardContent>
     </Card>
   );

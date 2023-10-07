@@ -73,7 +73,7 @@ const Image = styled.img`
   object-fit: contain;
 `;
 
-const Slider = ({ images }) => {
+const Slider = ({images}) => {
   const [slideIndex, setSlideIndex] = useState(0);
   const handleClick = (direction) => {
     if (direction === "left") {
@@ -89,7 +89,7 @@ const Slider = ({ images }) => {
         <ArrowLeftOutlined />
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
-        {images?.map((item) => (
+        {images.map((item) => (
           <Slide>
             <Image src={item.img} />
           </Slide>
