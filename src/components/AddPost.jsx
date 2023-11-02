@@ -7,11 +7,20 @@ import Stack from "@mui/joy/Stack";
 import Add from "@mui/icons-material/Add";
 import DialogTitle from "@mui/joy/DialogTitle";
 import DialogContent from "@mui/joy/DialogContent";
-import { IconButton, Modal, ModalDialog, Textarea } from "@mui/joy";
+import {
+  Box,
+  Chip,
+  ChipDelete,
+  IconButton,
+  Modal,
+  ModalDialog,
+  Textarea,
+} from "@mui/joy";
 import CloseIcon from "@mui/icons-material/Close";
 import { addPost } from "../api/posts";
 import toast, { Toaster } from "react-hot-toast";
 import { useEffect } from "react";
+import { useState } from "react";
 
 export default function AddPost({ user, fetchPosts }) {
   const [post, setPost] = React.useState({
@@ -25,24 +34,30 @@ export default function AddPost({ user, fetchPosts }) {
     tags: [],
     comments: [],
   });
-  
+  const [tag, setTag] = useState("");
+
   const [open, setOpen] = React.useState(false);
   const handleSubmit = async () => {
+    if(post.tags.length === 0){
+      toast("Please add some Tags that best identify your post!")
+      return
+    }
     addPost(post);
     toast.success("Posted!");
     setOpen(false);
   };
-
-  useEffect(()=>{
-    fetchPosts()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[open])
+  console.log(post.tags);
+  useEffect(() => {
+    fetchPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
 
   return (
     <React.Fragment>
       <Toaster
         toastOptions={{
           style: {
+            border:"0.5px solid #0058bd",
             backgroundColor: "black",
             color: "white",
             duration: 2000,
@@ -78,7 +93,6 @@ export default function AddPost({ user, fetchPosts }) {
           >
             <Stack spacing={2}>
               <FormControl>
-                <FormLabel></FormLabel>
                 <Input
                   autoFocus
                   required
@@ -86,6 +100,50 @@ export default function AddPost({ user, fetchPosts }) {
                   onChange={(e) => setPost({ ...post, title: e.target.value })}
                 />
               </FormControl>
+              <FormControl>
+                <Input
+                  value={tag}
+                  placeholder="Tags"
+                  onChange={(e) => setTag(e.target.value)}
+                />
+              </FormControl>
+              <Button
+                onClick={() => {
+                  if (tag !== "" && !post.tags.includes(tag)) {
+                    const taggy = post.tags;
+                    taggy.push(tag);
+                    setPost({ ...post, tags: taggy });
+                    setTag("")
+                  }
+                }}
+              >
+                Add Tag
+              </Button>
+              <Box
+                role="group"
+                aria-labelledby="fav-movie"
+                sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}
+              >
+                {post?.tags?.map((tag, i) => (
+                  <Chip
+                    variant="outlined"
+                    color="primary"
+                    size="lg"
+                    endDecorator={
+                      <ChipDelete
+                        onDelete={() => {
+                          const taggy = post.tags;
+                          console.log(taggy.splice(i, 1), "lol");
+                          setPost({ ...post, tags: taggy.splice(i, 1) });
+                        }}
+                      />
+                    }
+                  >
+                    {tag}
+                  </Chip>
+                ))}
+              </Box>
+
               <FormControl>
                 <Textarea
                   required

@@ -16,19 +16,30 @@ import ModeCommentOutlined from "@mui/icons-material/ModeCommentOutlined";
 import SendOutlined from "@mui/icons-material/SendOutlined";
 import BookmarkBorderRoundedIcon from "@mui/icons-material/BookmarkBorderRounded";
 import ImgCarousel from "./ImgCarousel";
-import { Button, Divider } from "@mui/joy";
+import { Button, Chip, Divider } from "@mui/joy";
 import { commentPost, getSinglePost, likePost } from "../api/posts";
 import { useState } from "react";
 import { useEffect } from "react";
 import Comment from "./Comment";
+import DeleteOutlineIcon from '@mui/icons-material/Delete';
 
-export default function Post({ post, user, posts }) {
+export default function Post({ post, user, posts, fetchPosts }) {
   const [data, setData] = useState(post);
   const [comment, setComment] = useState("");
 
   const handleLike = async () => {
     await likePost(user.email, data, setData);
   };
+
+  const handlePostDelete = async () => {
+
+  }
+
+  const deleteComment = async (index) => {
+    const newArray = data.comments.splice(index,1)
+    const updateArray = commentPost(data, newArray)
+    setData({...data, comments: updateArray})
+  }
 
   const handleComment = async(e) => {
     e.preventDefault();
@@ -69,10 +80,27 @@ export default function Post({ post, user, posts }) {
           size="sm"
           sx={{ ml: "auto" }}
         >
-          <MoreHoriz />
+          { user.email === post.email && <DeleteOutlineIcon />}
         </IconButton>
       </CardContent>
       <Divider />
+      
+      <Box
+                role="group"
+                aria-labelledby="fav-movie"
+                sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}
+              >
+                {post?.tags?.map((tag, i) => (
+                  <Chip
+                    variant="outlined"
+                    color="primary"
+                    size="lg"
+                    
+                  >
+                    {tag}
+                  </Chip>
+                ))}
+              </Box>
       <CardOverflow>
         <Box sx={{ width: "100%", overflowY: "auto" }}>
           <ImgCarousel images={data?.img} />
@@ -184,7 +212,7 @@ export default function Post({ post, user, posts }) {
         </CardContent>
       </form>
       <CardContent orientation="vertical" sx={{ gap: 1 }}>
-        {data?.comments?.slice().reverse().map((record)=> <Comment record={record} />)}
+        {data?.comments?.slice().reverse().map((record, index)=> <Comment record={record} user={user} deleteComment={deleteComment} index={index}/>)}
       </CardContent>
     </Card>
   );

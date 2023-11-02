@@ -61,6 +61,7 @@ export default function Login() {
       <Toaster
         toastOptions={{
           style: {
+            border:"0.5 px blue",
             backgroundColor: "black",
             color: "white",
           },

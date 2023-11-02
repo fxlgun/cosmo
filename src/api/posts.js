@@ -56,3 +56,11 @@ export const commentPost = async (newData, commentArray) => {
   const newArray = await getSinglePost(newData.id);
   return newArray.comments
 };
+
+
+
+export const deletePost = async (newData, commentArray) => {
+  await updateDoc(doc(db, "posts", newData.id), { comments: commentArray });
+  const newArray = await getSinglePost(newData.id);
+  return newArray.comments
+};

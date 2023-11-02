@@ -65,7 +65,7 @@ const Home = () => {
         </Layout.SideNav>
         <Layout.Main>
           <AddPost fetchPosts={fetchPosts} user={user} />
-          {posts?.map((post) => <Post post={post} user={user} posts={posts} />)}
+          {posts?.map((post) => <Post post={post} user={user} posts={posts} fetchPosts={fetchPosts} />)}
         </Layout.Main>
         <Sheet
           sx={{
