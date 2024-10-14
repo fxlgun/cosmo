@@ -13,6 +13,7 @@ import AddPost from "../components/AddPost";
 import { getPost } from "../api/posts";
 
 const Home = () => {
+  const [page, setPage] = useState("home")
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
@@ -43,7 +44,7 @@ const Home = () => {
       <CssBaseline />
       {drawerOpen && (
         <Layout.SideDrawer onClose={() => setDrawerOpen(false)}>
-          <Navigation />
+          <Navigation page={page} />
         </Layout.SideDrawer>
       )}
       <Layout.Root
@@ -64,8 +65,21 @@ const Home = () => {
           <Navigation />
         </Layout.SideNav>
         <Layout.Main>
-          <AddPost fetchPosts={fetchPosts} user={user} />
-          {posts?.map((post) => <Post post={post} user={user} posts={posts} fetchPosts={fetchPosts} />)}
+          {() => {
+            switch (page) {
+              case "home":
+                return <><AddPost fetchPosts={fetchPosts} user={user} />
+                  {posts?.map((post) => <Post post={post} user={user} posts={posts} fetchPosts={fetchPosts} />)}</>
+                break;
+              case "profile":
+                return <></>
+
+              default:
+                return <>mine all mine</>
+                break;
+            }
+          }}
+
         </Layout.Main>
         <Sheet
           sx={{

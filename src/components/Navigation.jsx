@@ -16,7 +16,7 @@ import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownR
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { LogOutAPI } from "../api/auth";
 
-export default function Navigation() {
+export default function Navigation({ page }) {
   return (
     <List size="md" sx={{ "--ListItem-radius": "8px", "--List-gap": "4px" }}>
       <ListItem nested>
